@@ -39,6 +39,12 @@ proc getTranslationUnitCursor*(a1: CXTranslationUnit): CXCursor {.
     importc: "clang_getTranslationUnitCursor", cdecl.}
 
 
+#[
+  CINDEX_LINKAGE void clang_disposeTranslationUnit(CXTranslationUnit);
+]#
+proc disposeTranslationUnit*(a1: CXTranslationUnit) {.importc: "clang_disposeTranslationUnit", cdecl.}
+
+
 # ----------------------------------------------------------------------------
 
 
@@ -61,4 +67,6 @@ var unit = parseTranslationUnit(index,
   commandLineArgs, commandLineParams.len.cint, nil, 0, 0)
 deallocCStringArray(commandLineArgs)
 
-discard getTranslationUnitCursor(unit) # SIGSEGV
+var cursor = getTranslationUnitCursor(unit) # SIGSEGV
+
+disposeTranslationUnit(unit)

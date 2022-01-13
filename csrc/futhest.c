@@ -10,7 +10,7 @@ int main (void) {
     commandLineArgs[1] = "-I/usr/include";
 
     CXTranslationUnit TU = clang_parseTranslationUnit(Idx, 
-        "futhark-includes.h", commandLineArgs, 2, 0, 0, 0);
+        "futhark-includes.h", commandLineArgs, args, 0, 0, 0);
 
     CXCursor cursor = clang_getTranslationUnitCursor(TU);
     
