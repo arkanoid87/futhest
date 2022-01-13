@@ -1,0 +1,14 @@
+FROM nimlang/nim:1.6.2-alpine
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+RUN apk add --update-cache \
+  clang-dev \
+  openldap-dev \
+  && rm -rf /var/cache/apk/*
+
+COPY . /usr/src/app
+RUN nimble build -y --passL:"-lclang"
+
+RUN ./futhest
