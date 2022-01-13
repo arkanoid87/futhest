@@ -1,5 +1,5 @@
-futhark-includes.h
-futhest
-csrc/futhest
+/futhark-includes.h
+/futhest
+/csrc/futhest
 
-.vscode/
+/.vscode/
