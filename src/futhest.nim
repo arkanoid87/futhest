@@ -50,22 +50,15 @@ proc disposeTranslationUnit*(a1: CXTranslationUnit) {.importc: "clang_disposeTra
 # ----------------------------------------------------------------------------
 
 
-static:
-  # any content will fail, including empty file
-  writeFile("header.h", """
-int addition(int num1, int num2) {
-    return num1+num2;
-}
-""")
-
 var
   index = createIndex(0, 0)
-  unit = parseTranslationUnit(index, "header.h".cstring, nil, 0, nil, 0, 0)
+  unit = parseTranslationUnit(index, "csrc/header.h".cstring, nil, 0, nil, 0, 0)
 
 doAssert not unit.isNil
 
 var cursor = getTranslationUnitCursor(unit) # SIGSEGV
 
+# never reached
 disposeTranslationUnit(unit)
 
 echo "END"
