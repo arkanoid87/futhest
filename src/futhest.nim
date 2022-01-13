@@ -17,7 +17,7 @@ var
 
 
 var unit = parseTranslationUnit(index, fname.cstring,
-                              commandLine, commandLineParams.len.cint, nil, 0, CXTranslationUnit_DetailedPreprocessingRecord.cuint or CXTranslationUnit_SkipFunctionBodies.cuint)
+                              commandLine, commandLineParams.len.cint, nil, 0, CXTranslationUnit_None.cuint)
 deallocCStringArray(commandLine)
 
 block: # testing stuff
