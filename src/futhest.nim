@@ -1,5 +1,3 @@
-# import clang
-
 type
   CXIndex = pointer
   CXTranslationUnit = pointer
@@ -52,7 +50,7 @@ proc disposeTranslationUnit*(a1: CXTranslationUnit) {.importc: "clang_disposeTra
 
 var
   index = createIndex(0, 0)
-  unit = parseTranslationUnit(index, "csrc/header.h".cstring, nil, 0, nil, 0, 0)
+  unit = parseTranslationUnit(index, "src/header.h".cstring, nil, 0, nil, 0, 0)
 
 doAssert not unit.isNil
 
