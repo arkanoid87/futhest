@@ -11,4 +11,3 @@ bin           = @["futhest"]
 # Dependencies
 
 requires "nim >= 1.6.2"
-requires "clang#head"
