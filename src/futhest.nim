@@ -3,8 +3,10 @@
 type
   CXIndex = pointer
   CXTranslationUnit = pointer
-  CXCursor = pointer
-
+  CXCursor* {.bycopy.} = object
+    kind*: byte
+    xdata*: cint
+    data*: array[3, pointer]
 
 #[
 CINDEX_LINKAGE CXIndex clang_createIndex(int excludeDeclarationsFromPCH,
@@ -50,23 +52,20 @@ proc disposeTranslationUnit*(a1: CXTranslationUnit) {.importc: "clang_disposeTra
 
 static:
   # any content will fail, including empty file
-  writeFile("futhark-includes.h", """
-  #include "ldap.h"
+  writeFile("header.h", """
+int addition(int num1, int num2) {
+    return num1+num2;
+}
 """)
 
 var
-  commandLineParams = @[
-    "-I/usr/lib/clang/10/include",
-    "-I/usr/include"]
   index = createIndex(0, 0)
-  commandLineArgs = allocCStringArray(commandLineParams)
+  unit = parseTranslationUnit(index, "header.h".cstring, nil, 0, nil, 0, 0)
 
-
-var unit = parseTranslationUnit(index, 
-  "futhark-includes.h".cstring,
-  commandLineArgs, commandLineParams.len.cint, nil, 0, 0)
-deallocCStringArray(commandLineArgs)
+doAssert not unit.isNil
 
 var cursor = getTranslationUnitCursor(unit) # SIGSEGV
 
 disposeTranslationUnit(unit)
+
+echo "END"

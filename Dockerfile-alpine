@@ -5,7 +5,6 @@ WORKDIR /usr/src/app
 
 RUN apk add --update-cache \
   clang-dev \
-  openldap-dev \
   && rm -rf /var/cache/apk/*
 
 COPY . /usr/src/app
