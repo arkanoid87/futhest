@@ -20,3 +20,13 @@ amount = 278528]]
 Segmentation fault (core dumped)
 The command '/bin/sh -c ./futhest' returned a non-zero code: 139
 ```
+
+# solution
+
+it's a regression:
+- 1.7.1 devel 9888a29c3de09c73202b2a955e09e2a7b5e56ea4: SIGSEGV
+- 1.6.2: SIGSEGV
+- 1.6.0: OK
+- 1.4.8: OK
+- 1.2.0: OK
+- 1.0.0: OK
